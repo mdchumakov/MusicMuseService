@@ -1,4 +1,4 @@
- {% extends 'base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% block extra_styles %}
     <link rel="stylesheet" href="{% static 'music/css/release_page.css' %}">
@@ -8,16 +8,16 @@
 <!-- Шапка релиза -->
 <div class="release-detail-header">
   <div class="release-detail-background" style="background-image: linear-gradient(rgba(0,0,0,0.3), var(--bg-dark)), url('{{ release.cover_image.image.url }}');"></div>
-
+  
   <div class="detail-info">
     <div class="detail-cover">
       <img src="{{ release.cover_image.image.url }}" alt="{{ release.name }}">
     </div>
-
+    
     <div class="detail-meta">
       <span class="detail-type">{{ release.release_type }}</span>
       <h1 class="detail-title">{{ release.name }}</h1>
-
+      
       <div class="detail-artist-info">
         <div class="detail-artist-details">
           {% for artist in release.artists.all %}
@@ -34,7 +34,7 @@
       </div>
     </div>
   </div>
-
+  
   <!-- Кнопки управления -->
   <div class="detail-controls">
     <button class="detail-play-button" id="playReleaseButton">
@@ -57,14 +57,14 @@
       </svg>
     </div>
   </div>
-
+  
   <!-- Треки -->
   <div class="detail-track-list">
     {% for track in tracks %}
     <div class="detail-track-item"
-         data-track-id="{{ track.id }}"
-         data-track-name="{{ track.name }}"
-         data-artist-name="{% for artist in track.artists.all %}{{ artist.name }}{% if not forloop.last %}, {% endif %}{% endfor %}"
+         data-track-id="{{ track.id }}" 
+         data-track-name="{{ track.name }}" 
+         data-artist-name="{% for artist in track.artists.all %}{{ artist.name }}{% if not forloop.last %}, {% endif %}{% endfor %}" 
          data-cover-url="{% if track.cover_image %}{{ track.cover_image.image.url }}{% else %}{{ release.cover_image.image.url }}{% endif %}"
          data-audio-url="{{ track.track.audio.url }}"
          data-video-url="{% if track.video %}{{ track.video.video.url }}{% endif %}">
@@ -88,7 +88,7 @@
     </div>
     {% endfor %}
   </div>
-
+  
   <!-- Информация о релизе -->
   <div class="detail-release-info">
     <p class="detail-release-date">{{ release.release_date|date:"d F Y" }}</p>

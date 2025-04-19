@@ -8,3 +8,4 @@ class Tags(StrEnum):
     labels = "Лейблы"
     tracks = "Треки"
     content = "Контент"
+    search = "Поиск"

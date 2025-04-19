@@ -9,6 +9,7 @@ from apps.music.api.routes.genres import router_v1 as genres_router_v1
 from apps.music.api.routes.labels import router_v1 as labels_router_v1
 from apps.music.api.routes.releases import router_v1 as releases_router_v1
 from apps.music.api.routes.tracks import router_v1 as tracks_router_v1
+from apps.music.api.routes.search import router_v1 as search_router_v1
 from core.settings import DEBUG, PROJECT_VERSION
 
 api = NinjaAPI(
@@ -23,6 +24,7 @@ api = NinjaAPI(
     auth=APIKeyAuth() if not DEBUG else None,
 )
 
+api.add_router(prefix="v1/music/search", router=search_router_v1)
 api.add_router(prefix="v1/music/genres", router=genres_router_v1)
 api.add_router(prefix="v1/music/artists", router=artists_router_v1)
 api.add_router(prefix="v1/music/labels", router=labels_router_v1)
