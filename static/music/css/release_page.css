@@ -1,9 +1,8 @@
 .release-detail-header {
     position: relative;
-    padding: 70px 24px;
+    padding: 60px 24px;
     color: var(--text-primary);
     margin-bottom: 24px;
-    margin-top: 55px;
 }
 
 .release-detail-background {

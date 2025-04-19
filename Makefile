@@ -37,3 +37,5 @@ opensearch-document:
 squash-migrations:
 	@poetry run python manage.py squashmigrations <appname> <squashfrom> <squashto>
 
+django-shell:
+	@poetry run python manage.py shell
