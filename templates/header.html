@@ -1,4 +1,7 @@
 {% load static %}
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'music/css/search.css' %}">
+{% endblock %}
 <!-- Заголовок сайта с поиском -->
 <div class="header-container">
   <!-- Левая часть с логотипом и навигацией на главную -->
@@ -33,5 +36,6 @@
 </div>
 
 <!-- Подключаем стили и скрипты для поиска -->
-<link rel="stylesheet" href="{% static 'music/css/search.css' %}">
-<script src="{% static 'music/js/search.js' %}"></script>
+{% block extra_scripts %}
+    <script src="{% static 'music/js/search.js' %}"></script>
+{% endblock %}

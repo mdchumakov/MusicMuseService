@@ -2,77 +2,20 @@
 {% load static %}
 {% block content %}
 
-    <!-- Раздел с популярными треками -->
-<section class="music-section">
-    <h3>Популярные треки</h3>
-
-  <div class="track-cards" id="tracks-container">
-    {% for track in tracks %}
-    <div class="track-card" data-id="{{ track.id }}">
-    <a class="track-page-link" href="/music/track/{{ track.id }}">
-      <div class="track-image-container">
-        <img src="{% if track.cover_image %}{{ track.cover_image.image.url }}{% else %}{{ track.release.cover_image.image.url }}{% endif %}" alt="{{ track.name }}" class="track-image">
-        <div class="play-overlay">
-          <button class="play-button">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="24" cy="24" r="24" fill="#FFA500"></circle>
-              <path d="M33 24L19 32.6603L19 15.3397L33 24Z" fill="white"></path>
-            </svg>
-          </button>
-        </div>
-      </div>
-      <div class="track-info">
-        <h4 class="track-title">{{ track.name }}</h4>
-        <p class="track-artist">{{ track.artists.all|join:", " }}</p>
-      </div>
-    </a>
-    </div>
-    {% empty %}
-    <p class="no-content">Треки не найдены</p>
-    {% endfor %}
-  </div>
-</section>
-
-
-  <!-- Раздел с популярными исполнителями (круглые карточки) -->
-<section class="music-section">
-  <h3>Популярные исполнители</h3>
-  <div class="artist-cards" id="artists-container" data-next-page="2">
-    {% for artist in artists %}
-    <div class="artist-card" data-id="{{ artist.id }}">
-      <a class="artist-page-link" href="/music/artist/{{ artist.id }}">
-      <div class="artist-image">
-        <img src="{% if artist.avatar %}{{ artist.avatar.image.url }}{% else %}{% static 'music/svg/default-artist.svg' %}{% endif %}" alt="{{ artist.name }}">
-        <div class="play-overlay">
-          <button class="play-button">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="24" cy="24" r="24" fill="#FFA500"></circle>
-              <path d="M33 24L19 32.6603L19 15.3397L33 24Z" fill="white"></path>
-            </svg>
-          </button>
-        </div>
-      </div>
-      <div class="artist-info">
-        <h4>{{ artist.name }}</h4>
-        <p>Исполнитель</p>
-      </div>
-      </a>
-    </div>
-    {% empty %}
-    <p class="no-content">Исполнители не найдены</p>
-    {% endfor %}
-  </div>
-</section>
-
-<!-- Раздел с популярными альбомами и синглами (квадратные карточки) -->
-<section class="music-section">
-  <h3>Популярные альбомы и синглы</h3>
-  <div class="cards" id="albums-container" data-next-page="2">
-    {% for release in releases %}
-    <div class="music-card album-card" data-id="{{ release.id }}">
-        <a href="/music/release/{{ release.id }}/" class="album-link">
-          <div class="album-image-container">
-            <img src="{% if release.cover_image %}{{ release.cover_image.image.url }}{% else %}{% static 'music/svg/default-album.svg' %}{% endif %}" alt="{{ release.name }}" class="album-image">
+<!-- Раздел с популярными треками -->
+{% if tracks %}
+    <section class="music-section">
+        {% if searched %}
+            <h3>Найденные треки</h3>
+        {% else %}
+            <h3>Популярные треки</h3>
+        {% endif %}
+      <div class="track-cards" id="tracks-container">
+        {% for track in tracks %}
+        <div class="track-card" data-id="{{ track.id }}">
+        <a class="track-page-link" href="/music/track/{{ track.id }}">
+          <div class="track-image-container">
+            <img src="{% if track.cover_image %}{{ track.cover_image.image.url }}{% else %}{{ track.release.cover_image.image.url }}{% endif %}" alt="{{ track.name }}" class="track-image">
             <div class="play-overlay">
               <button class="play-button">
                 <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -82,15 +25,89 @@
               </button>
             </div>
           </div>
-          <div class="music-info">
-            <h4>{{ release.name }}</h4>
-            <p>{{ release.artists.all|join:", " }}</p>
+          <div class="track-info">
+            <h4 class="track-title">{{ track.name }}</h4>
+            <p class="track-artist">{{ track.artists.all|join:", " }}</p>
           </div>
         </a>
-    </div>
-    {% empty %}
-    <p class="no-content">Альбомы не найдены</p>
-    {% endfor %}
-  </div>
-</section>
+        </div>
+        {% empty %}
+        <p class="no-content">Треки не найдены</p>
+        {% endfor %}
+      </div>
+    </section>
+{% endif %}
+
+
+  <!-- Раздел с популярными исполнителями (круглые карточки) -->
+{% if artists %}
+    <section class="music-section">
+        {% if searched %}
+            <h3>Найденные исполнители</h3>
+        {% else %}
+            <h3>Популярные исполнители</h3>
+        {% endif %}
+      <div class="artist-cards" id="artists-container" data-next-page="2">
+        {% for artist in artists %}
+        <div class="artist-card" data-id="{{ artist.id }}">
+          <a class="artist-page-link" href="/music/artist/{{ artist.id }}">
+          <div class="artist-image">
+            <img src="{% if artist.avatar %}{{ artist.avatar.image.url }}{% else %}{% static 'music/svg/default-artist.svg' %}{% endif %}" alt="{{ artist.name }}">
+            <div class="play-overlay">
+              <button class="play-button">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="24" cy="24" r="24" fill="#FFA500"></circle>
+                  <path d="M33 24L19 32.6603L19 15.3397L33 24Z" fill="white"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="artist-info">
+            <h4>{{ artist.name }}</h4>
+            <p>Исполнитель</p>
+          </div>
+          </a>
+        </div>
+        {% empty %}
+        <p class="no-content">Исполнители не найдены</p>
+        {% endfor %}
+      </div>
+    </section>
+{% endif %}
+
+<!-- Раздел с популярными альбомами и синглами (квадратные карточки) -->
+{% if releases %}
+    <section class="music-section">
+        {% if searched %}
+            <h3>Найденные альбомы и синглы</h3>
+        {% else %}
+            <h3>Популярные альбомы и синглы</h3>
+        {% endif %}
+      <div class="cards" id="albums-container" data-next-page="2">
+        {% for release in releases %}
+        <div class="music-card album-card" data-id="{{ release.id }}">
+            <a href="/music/release/{{ release.id }}/" class="album-link">
+              <div class="album-image-container">
+                <img src="{% if release.cover_image %}{{ release.cover_image.image.url }}{% else %}{% static 'music/svg/default-album.svg' %}{% endif %}" alt="{{ release.name }}" class="album-image">
+                <div class="play-overlay">
+                  <button class="play-button">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="24" cy="24" r="24" fill="#FFA500"></circle>
+                      <path d="M33 24L19 32.6603L19 15.3397L33 24Z" fill="white"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="music-info">
+                <h4>{{ release.name }}</h4>
+                <p>{{ release.artists.all|join:", " }}</p>
+              </div>
+            </a>
+        </div>
+        {% empty %}
+        <p class="no-content">Альбомы не найдены</p>
+        {% endfor %}
+      </div>
+    </section>
+{% endif %}
 {% endblock %}

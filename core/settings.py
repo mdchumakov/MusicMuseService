@@ -62,6 +62,7 @@ ALLOWED_HOSTS = [
     "mdchumakov-musicmuseservice-c5a4.twc1.net",
     "91.186.196.162",
     "94.228.123.232",
+    "192.168.0.228",
 ]
 
 CSRF_TRUSTED_ORIGINS = [

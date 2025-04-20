@@ -27,14 +27,6 @@
   border-radius: 2px; /* Скругляем края для лучшего внешнего вида */
 }
 
-/* Скрытие кнопки при фокусе на поиске */
-.search-container.focused ~ .menu-toggle,
-.header-container.search-focused ~ .menu-toggle {
-  opacity: 0;
-  transform: translateX(-100%);
-  pointer-events: none;
-}
-
 /* Боковая панель */
 .sidebar-wrapper {
   display: flex;
