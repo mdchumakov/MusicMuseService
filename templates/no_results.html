@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="no-results-container">
+  <div class="no-results-content">
+    <div class="no-results-icon">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="currentColor"></path>
+      </svg>
+    </div>
+    <h2 class="no-results-title">Ничего не найдено</h2>
+    <p class="no-results-query">По вашему запросу <span class="query-text">{{ query }}</span> ничего не найдено</p>
+    <p class="no-results-suggestion">Попробуйте:</p>
+    <ul class="no-results-tips">
+      <li>Проверить правильность написания</li>
+      <li>Использовать более общие слова</li>
+      <li>Добавить больше деталей к запросу</li>
+      <li>Попробовать другие ключевые слова</li>
+    </ul>
+  </div>
+</div>
+{% endblock %}

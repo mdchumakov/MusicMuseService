@@ -125,6 +125,7 @@
 /* Правая часть с кнопками авторизации */
 .header-right {
   display: flex;
+  order: 3;
   align-items: center;
   gap: 16px;
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -233,13 +234,14 @@
 
 @media (max-width: 600px) {
   .header-container {
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     gap: 10px;
   }
 
   .search-container {
-    max-width: 140px;
-    margin: 0 8px;
+    min-width: 70%;
+    margin: 10px 8px;
+    order: 3;
   }
 
   .search-input {
@@ -257,7 +259,11 @@
   }
 
   .header-right {
+    order: 2;
     gap: 8px;
+  }
+  .header-left {
+    order: 1;
   }
   
   .auth-button {
@@ -268,41 +274,10 @@
   .login-button {
     padding: 7px 12px;
   }
-  
-  /* Стили для фокуса на мобильных устройствах */
-  .search-container.focused {
-    position: absolute;
-    left: 0;
-    right: 0;
-    max-width: 100%;
-    margin: 0;
-    z-index: 100;
-    padding: 0 15px;
-  }
-  
-  .search-container.focused .search-input {
-    font-size: 16px;
-    padding: 12px 40px;
-    border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-  }
-  
-  .header-container.search-focused .header-left,
-  .header-container.search-focused .header-right {
-    opacity: 0;
-    transform: translateX(-100%);
-    pointer-events: none;
-  }
-  
-  .header-container.search-focused .search-container {
-    margin: 0;
-  }
+
 }
 
 @media (max-width: 480px) {
-  .register-button {
-    display: none;
-  }
   
   .search-container {
     max-width: 160px;

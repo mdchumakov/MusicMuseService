@@ -138,13 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
             searchContainer.classList.add('focused');
             headerContainer.classList.add('search-focused');
             document.body.style.overflow = 'hidden';
-            
-            // Скрываем кнопку menu-toggle
-            if (menuToggle) {
-                menuToggle.style.opacity = '0';
-                menuToggle.style.transform = 'translateX(-100%)';
-                menuToggle.style.pointerEvents = 'none';
-            }
+
         }
     }
     
@@ -153,13 +147,6 @@ document.addEventListener('DOMContentLoaded', function() {
             searchContainer.classList.remove('focused');
             headerContainer.classList.remove('search-focused');
             document.body.style.overflow = '';
-            
-            // Показываем кнопку menu-toggle
-            if (menuToggle) {
-                menuToggle.style.opacity = '';
-                menuToggle.style.transform = '';
-                menuToggle.style.pointerEvents = '';
-            }
         }
     }
     

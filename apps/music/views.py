@@ -3,17 +3,31 @@ from django.template import loader
 from django.shortcuts import get_object_or_404
 from random import randint
 from apps.music.models import Artists, Tracks, Releases
+from apps.music.services.search import make_full_search
 from apps.music.services.popular_extractor import popular_extractor
 
+_MIN_SEARCH_QUERY_LEN = 3
 
 def music(request: HttpRequest) -> HttpResponse:
+    search_query = request.GET.get("q")
+    if search_query and len(search_query.strip()) < _MIN_SEARCH_QUERY_LEN:
+        no_results = loader.get_template("no_results.html")
+        return HttpResponse(no_results.render({"query": search_query}, request))
+
     template = loader.get_template("music.html")
 
-    popular_artists, popular_releases, popular_tracks = popular_extractor()
+    if search_query:
+        artists, releases, tracks = make_full_search(search_query)
+        if all((artists is None, releases is None, tracks is None)):
+            return HttpResponse(template.render({"query": search_query}, request))
+    else:
+        artists, releases, tracks = popular_extractor()
+
     context = {
-        "artists": popular_artists,
-        "releases": popular_releases,
-        "tracks": popular_tracks,
+        "artists": artists,
+        "releases": releases,
+        "tracks": tracks,
+        "searched": bool(search_query),
     }
 
     return HttpResponse(template.render(context, request))
