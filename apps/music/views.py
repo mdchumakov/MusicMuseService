@@ -17,9 +17,10 @@ def music(request: HttpRequest) -> HttpResponse:
     template = loader.get_template("music.html")
 
     if search_query:
-        artists, releases, tracks = make_full_search(search_query)
+        artists, tracks, releases = make_full_search(search_query)
         if all((artists is None, releases is None, tracks is None)):
-            return HttpResponse(template.render({"query": search_query}, request))
+            no_results = loader.get_template("no_results.html")
+            return HttpResponse(no_results.render({"query": search_query}, request))
     else:
         artists, releases, tracks = popular_extractor()
 

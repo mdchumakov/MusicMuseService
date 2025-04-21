@@ -52,7 +52,7 @@
         <div class="artist-card" data-id="{{ artist.id }}">
           <a class="artist-page-link" href="/music/artist/{{ artist.id }}">
           <div class="artist-image">
-            <img src="{% if artist.avatar %}{{ artist.avatar.image.url }}{% else %}{% static 'music/svg/default-artist.svg' %}{% endif %}" alt="{{ artist.name }}">
+            <img src="{% if artist.avatar %}{{ artist.avatar.image.url }}{% else %}{% static 'music/images/default-artist.png' %}{% endif %}" alt="{{ artist.name }}">
             <div class="play-overlay">
               <button class="play-button">
                 <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
