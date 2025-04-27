@@ -73,6 +73,7 @@ def music_track_page(request: HttpRequest, track_id: int) -> HttpResponse:
     release_tracks = Tracks.objects.filter(release__id=track.release.pk)
 
     context = {
+        "track": track,
         "tracks": release_tracks,
         "total_duration": _calculate_total_duration(release_tracks),
     }
