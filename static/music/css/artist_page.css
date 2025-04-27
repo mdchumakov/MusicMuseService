@@ -503,42 +503,10 @@
   }
 }
 
-/* Стили для списка треков */
-.detail-track-list-container {
-  padding: 2rem;
-}
-
-.detail-track-list-header {
-  display: grid;
-  grid-template-columns: 50px 1fr 100px;
-  align-items: center;
-  padding: 0 1rem;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  letter-spacing: 0.1em;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding-bottom: 0.8rem;
-  margin-bottom: 0.8rem;
-}
-
 .detail-track-list {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-}
-
-.detail-track-item {
-  display: grid;
-  grid-template-columns: 50px 1fr 100px;
-  align-items: center;
-  padding: 0.8rem 1rem;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.detail-track-item:hover {
-  background-color: var(--bg-elevated);
 }
 
 .detail-track-number {
@@ -551,36 +519,6 @@
 .detail-track-index {
   color: var(--text-secondary);
   font-size: 1rem;
-}
-
-.detail-track-item:hover .detail-track-index {
-  display: none;
-}
-
-.detail-play-button-small {
-  display: none;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: none;
-  background: var(--accent-color);
-  color: var(--text-dark);
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: absolute;
-}
-
-.detail-track-item:hover .detail-play-button-small {
-  display: flex;
-}
-
-.detail-track-info-container {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  gap: 1rem;
 }
 
 .detail-track-cover {
@@ -600,11 +538,6 @@
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-}
-
-.detail-track-name {
-  color: var(--text-primary);
-  font-weight: 500;
 }
 
 .detail-track-duration {
@@ -641,39 +574,4 @@
 
 .release-play-button svg path {
   fill: white;
-}
-
-/* Адаптивность */
-@media (max-width: 768px) {
-  .detail-track-list-container {
-    padding: 1.5rem;
-  }
-
-  .detail-track-item {
-    padding: 0.6rem 0.8rem;
-  }
-
-  .detail-track-cover {
-    width: 36px;
-    height: 36px;
-  }
-}
-
-@media (max-width: 480px) {
-  .detail-track-list-container {
-    padding: 1rem;
-  }
-
-  .detail-track-list-header {
-    font-size: 0.8rem;
-  }
-
-  .detail-track-item {
-    padding: 0.5rem 0.6rem;
-  }
-
-  .detail-track-cover {
-    width: 32px;
-    height: 32px;
-  }
 }

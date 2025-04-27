@@ -1,0 +1,59 @@
+/* Кнопки управления */
+.detail-controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.detail-play-button {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: var(--orange-accent);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.detail-play-button:hover {
+  transform: scale(1.05);
+  background-color: #ffb52e;
+}
+
+.detail-action-button {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: none;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.detail-action-button:hover {
+  color: var(--text-color);
+  transform: scale(1.1);
+}
+
+@media (max-width: 900px) {
+    .detail-controls {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .detail-play-button {
+    width: 48px;
+    height: 48px;
+  }
+}

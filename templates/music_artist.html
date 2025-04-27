@@ -26,91 +26,38 @@
   </div>
   
   <!-- Кнопки управления -->
-  <div class="artist-controls">
-    <button class="artist-play-button" id="playArtistButton">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <path d="M8 5V19L19 12L8 5Z" fill="currentColor"></path>
-      </svg>
-      <span>Слушать</span>
-    </button>
-  </div>
+  {% include 'track_controls.html' %}
 </div>
 
-<!-- Популярные треки -->
-<div class="detail-track-list-container">
-  <div class="detail-track-list-header">
-    <div class="detail-track-number">#</div>
-    <div class="detail-track-title-header">Название</div>
-    <div class="detail-track-duration">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 3.5C5.51 3.5 3.5 5.51 3.5 8C3.5 10.49 5.51 12.5 8 12.5C10.49 12.5 12.5 10.49 12.5 8C12.5 5.51 10.49 3.5 8 3.5ZM8 11.5C6.07 11.5 4.5 9.93 4.5 8C4.5 6.07 6.07 4.5 8 4.5C9.93 4.5 11.5 6.07 11.5 8C11.5 9.93 9.93 11.5 8 11.5ZM8.25 5.75H7.5V8.5L9.75 9.9L10.125 9.285L8.25 8.13V5.75Z" fill="currentColor"></path>
-      </svg>
-    </div>
-  </div>
-  
-  <!-- Треки -->
-  <div class="detail-track-list">
-    {% for track in popular_tracks %}
-    <div class="detail-track-item"
-         data-track-id="{{ track.id }}" 
-         data-track-name="{{ track.name }}" 
-         data-artist-name="{{ artist.name }}" 
-         data-cover-url="{% if track.cover_image %}{{ track.cover_image.image.url }}{% else %}{{ track.release.cover_image.image.url }}{% endif %}"
-         data-audio-url="{{ track.track.audio.url }}">
-      <div class="detail-track-number">
-        <span class="detail-track-index">{{ forloop.counter }}</span>
-        <button class="detail-play-button-small">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M4.5 3.5V12.5L12.5 8L4.5 3.5Z" fill="white"></path>
-          </svg>
-        </button>
-      </div>
-      <div class="detail-track-info-container">
-        <div class="detail-track-cover">
-          {% if track.cover_image %}
-              <img src="{{ track.cover_image.image.url }}" alt="{{ track.name }}">
-          {% else %}
-              <img src="{{ track.release.cover_image.image.url }}" alt="{{ track.name }}">
-          {% endif %}
-        </div>
-        <div class="detail-track-info">
-          <div class="detail-track-name">{{ track.name }}</div>
-        </div>
-      </div>
-      <div class="detail-track-duration">{{ track.track.duration_render }}</div>
-    </div>
-    {% endfor %}
-  </div>
-</div>
+<!-- Список треков -->
+{% include 'track_list.html' %}
 
 <!-- Дискография -->
 <section class="discography">
   <h2>Дискография</h2>
   <div class="releases-grid">
     {% for release in releases %}
-    <div class="release-card">
-      <div class="release-cover">
-          <img src="{{ release.cover_image.image.url }}" alt="{{ release.name }}">
-        <button class="release-play-button">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="24" cy="24" r="24" fill="#FFA500"></circle>
-            <path d="M33 24L19 32.6603L19 15.3397L33 24Z" fill="white"></path>
-          </svg>
-        </button>
-      </div>
-      <div class="release-info">
-        <h3>{{ release.name }}</h3>
-        <span class="release-year">{{ release.release_date|date:"Y" }}</span>
-      </div>
-    </div>
+        <a href="/music/release/{{ release.id }}/" class="album-link">
+        <div class="release-card">
+
+          <div class="release-cover">
+              <img src="{{ release.cover_image.image.url }}" alt="{{ release.name }}">
+            <button class="release-play-button">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="24" cy="24" r="24" fill="#FFA500"></circle>
+                <path d="M33 24L19 32.6603L19 15.3397L33 24Z" fill="white"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="release-info">
+            <h3 style="color: var(--text-color);">{{ release.name }}</h3>
+            <span class="release-year">{{ release.release_date|date:"Y" }}</span>
+          </div>
+        </div>
+        </a>
+
     {% endfor %}
   </div>
 </section>
 
-{% include 'player.html' %}
-
-{% endblock %}
-
-{% block extra_scripts %}
-<script src="{% static 'music/js/player-detail.js' %}"></script>
 {% endblock %}

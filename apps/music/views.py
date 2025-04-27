@@ -1,12 +1,28 @@
 from django.http import HttpRequest, HttpResponse
 from django.template import loader
-from django.shortcuts import get_object_or_404
 from random import randint
+from django.shortcuts import redirect, get_object_or_404
 from apps.music.models import Artists, Tracks, Releases
 from apps.music.services.search import make_full_search
 from apps.music.services.popular_extractor import popular_extractor
 
 _MIN_SEARCH_QUERY_LEN = 3
+
+
+
+def download_track(request: HttpRequest, track_id: int):
+    track = get_object_or_404(Tracks, id=track_id)
+
+    response_headers = {
+        "Content-Disposition": f'attachment; filename="{track.slug}.mp3"',
+    }
+
+    return HttpResponse(
+        track.track.audio.read(),
+        content_type="audio/mp3",
+        headers=response_headers,
+    )
+
 
 def music(request: HttpRequest) -> HttpResponse:
     search_query = request.GET.get("q")
@@ -42,7 +58,7 @@ def music_artist_page(request: HttpRequest, artist_id: int) -> HttpResponse:
     releases = Releases.objects.filter(artists__in=[artist])[:10]
     context = {
         'artist': artist,
-        'popular_tracks': popular_tracks,
+        'tracks': popular_tracks,
         'releases': releases,
         'monthly_listeners': randint(1, 100),
     }
@@ -57,8 +73,7 @@ def music_track_page(request: HttpRequest, track_id: int) -> HttpResponse:
     release_tracks = Tracks.objects.filter(release__id=track.release.pk)
 
     context = {
-        "track": track,
-        "release_tracks": release_tracks,
+        "tracks": release_tracks,
         "total_duration": _calculate_total_duration(release_tracks),
     }
 

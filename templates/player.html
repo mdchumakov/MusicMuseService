@@ -2,6 +2,12 @@
 <div class="player-container" id="musicPlayer">
   <!-- Закрытый плеер (мини-версия) -->
   <div class="mini-player" id="miniPlayer">
+    <div class="mini-player-progress">
+      <div class="mini-player-progress-bar">
+        <div class="mini-player-progress-bar-fill" id="miniProgressBarFill"></div>
+      </div>
+    </div>
+    <div class="mini-player-content">
     <div class="mini-player-info">
       <img class="mini-player-cover" src="" alt="Обложка трека">
       <div class="mini-player-details">
@@ -10,35 +16,36 @@
       </div>
     </div>
     <div class="mini-player-controls">
-      <button class="mini-player-control prev-button">
+        <button class="mini-player-control prev-button">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M7 6C7 5.44772 6.55228 5 6 5C5.44772 5 5 5.44772 5 6V18C5 18.5523 5.44772 19 6 19C6.55228 19 7 18.5523 7 18V6Z" fill="currentColor"/>
-          <path d="M19 12L9 5V19L19 12Z" fill="currentColor"/>
+          <path d="M17 6C17 5.44772 17.4477 5 18 5C18.5523 5 19 5.44772 19 6V18C19 18.5523 18.5523 19 18 19C17.4477 19 17 18.5523 17 18V6Z" fill="currentColor"></path>
+          <path d="M5 12L15 5V19L5 12Z" fill="currentColor"></path>
         </svg>
       </button>
       <button class="mini-player-control play-button">
         <svg class="play-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+          <path d="M8 5V19L19 12L8 5Z" fill="currentColor"></path>
         </svg>
         <svg class="pause-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M10 4H6V20H10V4Z" fill="currentColor"/>
-          <path d="M18 4H14V20H18V4Z" fill="currentColor"/>
+          <path d="M10 4H6V20H10V4Z" fill="currentColor"></path>
+          <path d="M18 4H14V20H18V4Z" fill="currentColor"></path>
         </svg>
       </button>
       <button class="mini-player-control next-button">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M17 6C17 5.44772 17.4477 5 18 5C18.5523 5 19 5.44772 19 6V18C19 18.5523 18.5523 19 18 19C17.4477 19 17 18.5523 17 18V6Z" fill="currentColor"/>
-          <path d="M5 12L15 5V19L5 12Z" fill="currentColor"/>
+          <path d="M7 6C7 5.44772 6.55228 5 6 5C5.44772 5 5 5.44772 5 6V18C5 18.5523 5.44772 19 6 19C6.55228 19 7 18.5523 7 18V6Z" fill="currentColor"></path>
+          <path d="M19 12L9 5V19L19 12Z" fill="currentColor"></path>
         </svg>
       </button>
       <button class="mini-player-control expand-button">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M7 14H5V19H10V17H7V14Z" fill="currentColor"/>
-          <path d="M5 10H7V7H10V5H5V10Z" fill="currentColor"/>
-          <path d="M17 17H14V19H19V14H17V17Z" fill="currentColor"/>
-          <path d="M14 5V7H17V10H19V5H14Z" fill="currentColor"/>
+          <path d="M7 14H5V19H10V17H7V14Z" fill="currentColor"></path>
+          <path d="M5 10H7V7H10V5H5V10Z" fill="currentColor"></path>
+          <path d="M17 17H14V19H19V14H17V17Z" fill="currentColor"></path>
+          <path d="M14 5V7H17V10H19V5H14Z" fill="currentColor"></path>
         </svg>
       </button>
+      </div>
     </div>
   </div>
 
@@ -48,7 +55,7 @@
     <div class="player-top-bar">
       <button class="player-close-button" id="closePlayer">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"/>
+          <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"></path>
         </svg>
       </button>
     </div>
@@ -76,27 +83,27 @@
       <div class="player-track-actions">
         <button class="player-action-button like-button">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5C22 12.27 18.6 15.36 13.45 20.03L12 21.35Z" fill="currentColor"/>
+            <path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5C22 12.27 18.6 15.36 13.45 20.03L12 21.35Z" fill="currentColor"></path>
           </svg>
         </button>
         <button class="player-action-button share-button">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M18 16.08C17.24 16.08 16.56 16.38 16.04 16.85L8.91 12.7C8.96 12.47 9 12.24 9 12C9 11.76 8.96 11.53 8.91 11.3L15.96 7.19C16.5 7.69 17.21 8 18 8C19.66 8 21 6.66 21 5C21 3.34 19.66 2 18 2C16.34 2 15 3.34 15 5C15 5.24 15.04 5.47 15.09 5.7L8.04 9.81C7.5 9.31 6.79 9 6 9C4.34 9 3 10.34 3 12C3 13.66 4.34 15 6 15C6.79 15 7.5 14.69 8.04 14.19L15.16 18.35C15.11 18.56 15.08 18.78 15.08 19C15.08 20.61 16.39 21.92 18 21.92C19.61 21.92 20.92 20.61 20.92 19C20.92 17.39 19.61 16.08 18 16.08Z" fill="currentColor"/>
+            <path d="M18 16.08C17.24 16.08 16.56 16.38 16.04 16.85L8.91 12.7C8.96 12.47 9 12.24 9 12C9 11.76 8.96 11.53 8.91 11.3L15.96 7.19C16.5 7.69 17.21 8 18 8C19.66 8 21 6.66 21 5C21 3.34 19.66 2 18 2C16.34 2 15 3.34 15 5C15 5.24 15.04 5.47 15.09 5.7L8.04 9.81C7.5 9.31 6.79 9 6 9C4.34 9 3 10.34 3 12C3 13.66 4.34 15 6 15C6.79 15 7.5 14.69 8.04 14.19L15.16 18.35C15.11 18.56 15.08 18.78 15.08 19C15.08 20.61 16.39 21.92 18 21.92C19.61 21.92 20.92 20.61 20.92 19C20.92 17.39 19.61 16.08 18 16.08Z" fill="currentColor"></path>
           </svg>
         </button>
         <button class="player-action-button add-to-playlist-button">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14 10H2V12H14V10Z" fill="currentColor"/>
-            <path d="M14 6H2V8H14V6Z" fill="currentColor"/>
-            <path d="M2 16H10V14H2V16Z" fill="currentColor"/>
-            <path d="M21.5 14.5L16.5 19.5L13 16L11.5 17.5L16.5 22.5L23 16L21.5 14.5Z" fill="currentColor"/>
+            <path d="M14 10H2V12H14V10Z" fill="currentColor"></path>
+            <path d="M14 6H2V8H14V6Z" fill="currentColor"></path>
+            <path d="M2 16H10V14H2V16Z" fill="currentColor"></path>
+            <path d="M21.5 14.5L16.5 19.5L13 16L11.5 17.5L16.5 22.5L23 16L21.5 14.5Z" fill="currentColor"></path>
           </svg>
         </button>
         <button class="player-action-button options-button">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 8C13.1 8 14 7.1 14 6C14 4.9 13.1 4 12 4C10.9 4 10 4.9 10 6C10 7.1 10.9 8 12 8Z" fill="currentColor"/>
-            <path d="M12 10C10.9 10 10 10.9 10 12C10 13.1 10.9 14 12 14C13.1 14 14 13.1 14 12C14 10.9 13.1 10 12 10Z" fill="currentColor"/>
-            <path d="M12 16C10.9 16 10 16.9 10 18C10 19.1 10.9 20 12 20C13.1 20 14 19.1 14 18C14 16.9 13.1 16 12 16Z" fill="currentColor"/>
+            <path d="M12 8C13.1 8 14 7.1 14 6C14 4.9 13.1 4 12 4C10.9 4 10 4.9 10 6C10 7.1 10.9 8 12 8Z" fill="currentColor"></path>
+            <path d="M12 10C10.9 10 10 10.9 10 12C10 13.1 10.9 14 12 14C13.1 14 14 13.1 14 12C14 10.9 13.1 10 12 10Z" fill="currentColor"></path>
+            <path d="M12 16C10.9 16 10 16.9 10 18C10 19.1 10.9 20 12 20C13.1 20 14 19.1 14 18C14 16.9 13.1 16 12 16Z" fill="currentColor"></path>
           </svg>
         </button>
       </div>
@@ -118,34 +125,34 @@
     <div class="player-controls">
       <button class="player-control-button shuffle-button">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M10.59 9.17L5.41 4L4 5.41L9.17 10.58L10.59 9.17ZM14.5 4L16.54 6.04L4 18.59L5.41 20L17.96 7.46L20 9.5V4H14.5ZM14.83 13.41L13.42 14.82L16.55 17.95L14.5 20H20V14.5L17.96 16.54L14.83 13.41Z" fill="currentColor"/>
+          <path d="M10.59 9.17L5.41 4L4 5.41L9.17 10.58L10.59 9.17ZM14.5 4L16.54 6.04L4 18.59L5.41 20L17.96 7.46L20 9.5V4H14.5ZM14.83 13.41L13.42 14.82L16.55 17.95L14.5 20H20V14.5L17.96 16.54L14.83 13.41Z" fill="currentColor"></path>
         </svg>
       </button>
       <button class="player-control-button prev-button">
         <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M7 6C7 5.44772 6.55228 5 6 5C5.44772 5 5 5.44772 5 6V18C5 18.5523 5.44772 19 6 19C6.55228 19 7 18.5523 7 18V6Z" fill="currentColor"/>
-          <path d="M19 12L9 5V19L19 12Z" fill="currentColor"/>
+          <path d="M17 6C17 5.44772 17.4477 5 18 5C18.5523 5 19 5.44772 19 6V18C19 18.5523 18.5523 19 18 19C17.4477 19 17 18.5523 17 18V6Z" fill="currentColor"></path>
+          <path d="M5 12L15 5V19L5 12Z" fill="currentColor"></path>
         </svg>
       </button>
       <button class="player-control-button play-pause-button" id="playPauseButton">
         <svg class="play-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+          <path d="M8 5V19L19 12L8 5Z" fill="currentColor"></path>
         </svg>
         <svg class="pause-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M10 4H6V20H10V4Z" fill="currentColor"/>
-          <path d="M18 4H14V20H18V4Z" fill="currentColor"/>
+          <path d="M10 4H6V20H10V4Z" fill="currentColor"></path>
+          <path d="M18 4H14V20H18V4Z" fill="currentColor"></path>
         </svg>
       </button>
-      <button class="player-control-button next-button">
+              <button class="player-control-button next-button">
         <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M17 6C17 5.44772 17.4477 5 18 5C18.5523 5 19 5.44772 19 6V18C19 18.5523 18.5523 19 18 19C17.4477 19 17 18.5523 17 18V6Z" fill="currentColor"/>
-          <path d="M5 12L15 5V19L5 12Z" fill="currentColor"/>
+          <path d="M7 6C7 5.44772 6.55228 5 6 5C5.44772 5 5 5.44772 5 6V18C5 18.5523 5.44772 19 6 19C6.55228 19 7 18.5523 7 18V6Z" fill="currentColor"></path>
+          <path d="M19 12L9 5V19L19 12Z" fill="currentColor"></path>
         </svg>
       </button>
       <button class="player-control-button repeat-button">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M17 17H7V14L3 18L7 22V19H19V13H17V17Z" fill="currentColor"/>
-          <path d="M7 7H17V10L21 6L17 2V5H5V11H7V7Z" fill="currentColor"/>
+          <path d="M17 17H7V14L3 18L7 22V19H19V13H17V17Z" fill="currentColor"></path>
+          <path d="M7 7H17V10L21 6L17 2V5H5V11H7V7Z" fill="currentColor"></path>
         </svg>
       </button>
     </div>
@@ -155,19 +162,19 @@
       <div class="player-volume-container">
         <button class="player-volume-button" id="volumeButton">
           <svg class="volume-high-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3 9V15H7L12 20V4L7 9H3Z" fill="currentColor"/>
-            <path d="M16.5 12C16.5 10.23 15.48 8.71 14 7.97V16.02C15.48 15.29 16.5 13.77 16.5 12Z" fill="currentColor"/>
-            <path d="M14 3.23V5.29C16.89 6.15 19 8.83 19 12C19 15.17 16.89 17.85 14 18.71V20.77C18.01 19.86 21 16.28 21 12C21 7.72 18.01 4.14 14 3.23Z" fill="currentColor"/>
+            <path d="M3 9V15H7L12 20V4L7 9H3Z" fill="currentColor"></path>
+            <path d="M16.5 12C16.5 10.23 15.48 8.71 14 7.97V16.02C15.48 15.29 16.5 13.77 16.5 12Z" fill="currentColor"></path>
+            <path d="M14 3.23V5.29C16.89 6.15 19 8.83 19 12C19 15.17 16.89 17.85 14 18.71V20.77C18.01 19.86 21 16.28 21 12C21 7.72 18.01 4.14 14 3.23Z" fill="currentColor"></path>
           </svg>
           <svg class="volume-low-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3 9V15H7L12 20V4L7 9H3Z" fill="currentColor"/>
-            <path d="M16.5 12C16.5 10.23 15.48 8.71 14 7.97V16.02C15.48 15.29 16.5 13.77 16.5 12Z" fill="currentColor"/>
+            <path d="M3 9V15H7L12 20V4L7 9H3Z" fill="currentColor"></path>
+            <path d="M16.5 12C16.5 10.23 15.48 8.71 14 7.97V16.02C15.48 15.29 16.5 13.77 16.5 12Z" fill="currentColor"></path>
           </svg>
           <svg class="volume-mute-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 4L7 9H3V15H7L12 20V4Z" fill="currentColor"/>
-            <path d="M16.5 12C16.5 10.23 15.48 8.71 14 7.97V9.76L16.36 12.12C16.44 12.08 16.5 12 16.5 12Z" fill="currentColor"/>
-            <path d="M19.77 17.32L17.77 15.32C18.54 14.55 19 13.38 19 12C19 9.61 17.68 7.56 15.74 6.44V4.95C18.95 6.16 21 8.95 21 12C21 13.86 20.33 15.57 19.19 16.87L19.77 17.32Z" fill="currentColor"/>
-            <path d="M4.27 3L3 4.27L7.73 9H3V15H7L8.73 16.73L12 20V13.27L16.25 17.52C15.58 18.04 14.83 18.45 14 18.7V20.77C15.38 20.45 16.63 19.82 17.68 18.96L19.73 21L21 19.73L4.27 3Z" fill="currentColor"/>
+            <path d="M12 4L7 9H3V15H7L12 20V4Z" fill="currentColor"></path>
+            <path d="M16.5 12C16.5 10.23 15.48 8.71 14 7.97V9.76L16.36 12.12C16.44 12.08 16.5 12 16.5 12Z" fill="currentColor"></path>
+            <path d="M19.77 17.32L17.77 15.32C18.54 14.55 19 13.38 19 12C19 9.61 17.68 7.56 15.74 6.44V4.95C18.95 6.16 21 8.95 21 12C21 13.86 20.33 15.57 19.19 16.87L19.77 17.32Z" fill="currentColor"></path>
+            <path d="M4.27 3L3 4.27L7.73 9H3V15H7L8.73 16.73L12 20V13.27L16.25 17.52C15.58 18.04 14.83 18.45 14 18.7V20.77C15.38 20.45 16.63 19.82 17.68 18.96L19.73 21L21 19.73L4.27 3Z" fill="currentColor"></path>
           </svg>
         </button>
         <div class="player-volume-slider-container">
@@ -177,15 +184,15 @@
       <div class="player-additional-controls">
         <button class="player-additional-button pip-button" id="pipButton">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M21 3H3C1.9 3 1 3.9 1 5V19C1 20.1 1.9 21 3 21H21C22.1 21 23 20.1 23 19V5C23 3.9 22.1 3 21 3ZM21 19.01H3V4.99H21V19.01ZM18 15H12V9H18V15Z" fill="currentColor"/>
+            <path d="M21 3H3C1.9 3 1 3.9 1 5V19C1 20.1 1.9 21 3 21H21C22.1 21 23 20.1 23 19V5C23 3.9 22.1 3 21 3ZM21 19.01H3V4.99H21V19.01ZM18 15H12V9H18V15Z" fill="currentColor"></path>
           </svg>
         </button>
         <button class="player-additional-button fullscreen-button" id="fullscreenButton">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M7 14H5V19H10V17H7V14Z" fill="currentColor"/>
-            <path d="M5 10H7V7H10V5H5V10Z" fill="currentColor"/>
-            <path d="M17 17H14V19H19V14H17V17Z" fill="currentColor"/>
-            <path d="M14 5V7H17V10H19V5H14Z" fill="currentColor"/>
+            <path d="M7 14H5V19H10V17H7V14Z" fill="currentColor"></path>
+            <path d="M5 10H7V7H10V5H5V10Z" fill="currentColor"></path>
+            <path d="M17 17H14V19H19V14H17V17Z" fill="currentColor"></path>
+            <path d="M14 5V7H17V10H19V5H14Z" fill="currentColor"></path>
           </svg>
         </button>
       </div>
