@@ -1,0 +1,72 @@
+{% load static %}
+{% block extra_styles %}
+        <link rel="stylesheet" href="{% static 'music/css/track_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Список треков -->
+<div class="detail-track-list-container">
+  <div class="detail-track-list-header"></div>
+  <!-- Треки -->
+  <div class="detail-track-list">
+    {% for track_item in tracks %}
+    <div class="detail-track-item"
+         data-track-id="{{ track_item.id }}"
+         data-track-name="{{ track_item.name }}"
+         data-artist-name="{% for artist in track_item.artists.all %}{{ artist.name }}{% if not forloop.last %}, {% endif %}{% endfor %}"
+         data-cover-url="{% if track_item.cover_image %}{{ track_item.cover_image.image.url }}{% else %}{{ track_item.release.cover_image.image.url }}{% endif %}"
+         data-audio-url="{{ track_item.track.audio.url }}"
+         data-video-url="{% if track_item.video %}{{ track_item.video.video.url }}{% endif %}">
+      <div class="detail-track-controls">
+        <button class="detail-track-play-button" data-track-id="{{ track_item.id }}">
+          <svg class="play-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 5V19L19 12L8 5Z" fill="currentColor"></path>
+          </svg>
+          <div class="equalizer-icon">
+            <span class="equalizer-bar"></span>
+            <span class="equalizer-bar"></span>
+            <span class="equalizer-bar"></span>
+          </div>
+        </button>
+      </div>
+
+        <div class="detail-track-cover">
+        <img src="{% if track_item.cover_image %}{{ track_item.cover_image.image.url }}{% else %}{{ track_item.release.cover_image.image.url }}{% endif %}" alt="{{ track_item.name }}">
+      </div>
+
+      <div class="detail-track-info-container">
+        <div class="detail-track-name">{{ track_item.name }}</div>
+        <div class="detail-track-artists">
+          {% for artist in track_item.artists.all %}
+          <a href="/music/artist/{{ artist.id }}" class="detail-track-artist-link">{{ artist.name }}{% if not forloop.last %}, {% endif %}</a>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="detail-track-duration">{{ track_item.track.duration_render }}</div>
+
+      <div class="detail-track-actions">
+        <a href="{% url 'download_track' track_item.id %}" download class="detail-track-download-button">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" fill="currentColor"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <!-- Информация о выпуске -->
+  <div class="detail-release-info">
+    <p class="detail-release-date">{{ track.release.release_date|date:"d F Y" }}</p>
+    <p class="detail-copyright">{% if track.release.label %}© {{ track.release.release_date|date:"Y" }} {{ track.release.label }}{% endif %}</p>
+  </div>
+</div>
+
+<!-- Включаем плеер -->
+{% include 'player.html' %}
+
+{% endblock %}
+
+{% block extra_scripts %}
+    <script src="{% static 'music/js/player-detail.js' %}"></script>
+{% endblock %}

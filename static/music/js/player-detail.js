@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const currentTimeDisplay = document.getElementById('currentTime');
     const totalTimeDisplay = document.getElementById('totalTime');
     const progressBarFill = document.getElementById('progressBarFill');
+    const miniProgressBarFill = document.getElementById('miniProgressBarFill');
     const progressHandle = document.getElementById('progressHandle');
     const progressBarContainer = document.querySelector('.player-progress-bar-container');
     const volumeSlider = document.getElementById('volumeSlider');
@@ -27,8 +28,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const mainPlayButton = document.getElementById('mainPlayButton');
     const trackItems = document.querySelectorAll('.detail-track-item');
     
+    // Добавим новую переменную для хранения всех кнопок воспроизведения треков
+    const trackPlayButtons = document.querySelectorAll('.detail-track-play-button');
+    
     // Состояние плеера
     let isPlaying = false;
+    let isFirstPlay = true;
     let currentTrackId = null;
     let currentPlaylist = [];
     let audioContext = null;
@@ -78,8 +83,23 @@ document.addEventListener('DOMContentLoaded', function() {
         // Обновление состояния проигрывания
         audioElement.addEventListener('play', function() {
             isPlaying = true;
+            
+            // Обновляем состояние всех кнопок
             playPauseButton.classList.add('playing');
             miniPlayButton.classList.add('playing');
+            mainPlayButton.classList.add('playing');
+            
+            // Обновляем состояние кнопки воспроизведения трека
+            if (currentTrackId) {
+                const activeTrack = document.querySelector(`.detail-track-item[data-track-id="${currentTrackId}"]`);
+                if (activeTrack) {
+                    activeTrack.classList.add('playing');
+                    const playButton = activeTrack.querySelector('.detail-track-play-button');
+                    if (playButton) {
+                        playButton.classList.add('playing');
+                    }
+                }
+            }
             
             // Запуск визуализации
             if (!videoElement.src) {
@@ -89,8 +109,23 @@ document.addEventListener('DOMContentLoaded', function() {
         
         audioElement.addEventListener('pause', function() {
             isPlaying = false;
+            
+            // Обновляем состояние всех кнопок
             playPauseButton.classList.remove('playing');
             miniPlayButton.classList.remove('playing');
+            mainPlayButton.classList.remove('playing');
+            
+            // Обновляем состояние кнопки воспроизведения трека
+            if (currentTrackId) {
+                const activeTrack = document.querySelector(`.detail-track-item[data-track-id="${currentTrackId}"]`);
+                if (activeTrack) {
+                    activeTrack.classList.remove('playing');
+                    const playButton = activeTrack.querySelector('.detail-track-play-button');
+                    if (playButton) {
+                        playButton.classList.remove('playing');
+                    }
+                }
+            }
             
             // Остановка визуализации
             stopVisualization();
@@ -102,24 +137,52 @@ document.addEventListener('DOMContentLoaded', function() {
         // Основные кнопки воспроизведения
         if (mainPlayButton) {
             mainPlayButton.addEventListener('click', function() {
-                playTrack(mainPlayButton.dataset.trackId);
+                // Проверяем, воспроизводится ли уже этот трек
+                if (!mainPlayButton.dataset.trackId) {
+                    // Если нет, воспроизводим первый трек в списке
+                    mainPlayButton.dataset.trackId = currentPlaylist[0].id
+                }
+
+                if (currentTrackId === mainPlayButton.dataset.trackId) {
+                    // Если трек уже воспроизводится, ставим на паузу
+                    togglePlayPause();
+                } else {
+                    // Иначе воспроизводим новый трек
+                    playTrack(mainPlayButton.dataset.trackId);
+                }
             });
         }
         
-        // Кнопки воспроизведения для отдельных треков
+        // Обработчики для кнопок воспроизведения треков
+        trackPlayButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const trackItem = button.closest('.detail-track-item');
+                const trackId = trackItem.dataset.trackId;
+
+                // Меняем активный трек в mainPlayButton
+                mainPlayButton.dataset.trackId = trackId
+
+                if (currentTrackId === trackId) {
+                    togglePlayPause();
+                } else {
+                    playTrack(trackId);
+                }
+            });
+        });
+        
+        // Воспроизведение при клике на трек
         trackItems.forEach(item => {
-            const playButton = item.querySelector('.detail-play-button-small');
-            
-            if (playButton) {
-                playButton.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    playTrack(item.dataset.trackId);
-                });
-            }
-            
-            // Воспроизведение при клике на трек
-            item.addEventListener('click', function() {
+            item.addEventListener('click', function(e) {
+                // Проверяем, не является ли целевой элемент кнопкой скачивания или её потомком
+                if (e.target.closest('.detail-track-actions')) {
+                    return; // Прерываем выполнение функции, если клик был по кнопке скачивания
+                }
+                // Меняем активный трек в mainPlayButton
+                mainPlayButton.dataset.trackId = item.dataset.trackId
+
                 playTrack(item.dataset.trackId);
             });
         });
@@ -136,6 +199,18 @@ document.addEventListener('DOMContentLoaded', function() {
         // Кнопка закрытия полноэкранного плеера
         closeButton.addEventListener('click', function() {
             hideFullPlayer();
+        });
+        
+        // Кнопки переключения треков
+        const nextButtons = document.querySelectorAll('.next-button');
+        const prevButtons = document.querySelectorAll('.prev-button');
+        
+        nextButtons.forEach(button => {
+            button.addEventListener('click', playNextTrack);
+        });
+        
+        prevButtons.forEach(button => {
+            button.addEventListener('click', playPrevTrack);
         });
         
         // Прогресс-бар
@@ -188,8 +263,21 @@ document.addEventListener('DOMContentLoaded', function() {
         // Запускаем воспроизведение
         audioElement.play().then(() => {
             isPlaying = true;
+            
+            // Обновляем состояние всех кнопок
             playPauseButton.classList.add('playing');
             miniPlayButton.classList.add('playing');
+            mainPlayButton.classList.add('playing');
+            
+            // Обновляем состояние кнопки воспроизведения трека
+            const activeTrack = document.querySelector(`.detail-track-item[data-track-id="${trackId}"]`);
+            if (activeTrack) {
+                activeTrack.classList.add('playing');
+                const playButton = activeTrack.querySelector('.detail-track-play-button');
+                if (playButton) {
+                    playButton.classList.add('playing');
+                }
+            }
             
             // Показываем мини-плеер
             miniPlayer.style.transform = 'translateY(0)';
@@ -203,15 +291,41 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Обновление активного трека в UI
     function updateActiveTrack(trackId) {
-        // Снимаем класс active со всех треков
+        // Снимаем классы active и playing со всех треков и их кнопок
         trackItems.forEach(item => {
-            item.classList.remove('active');
+            item.classList.remove('active', 'playing');
+            const playButton = item.querySelector('.detail-track-play-button');
+            if (playButton) {
+                playButton.classList.remove('playing');
+            }
         });
         
-        // Добавляем класс active к выбранному треку
+        // Добавляем классы к активному треку
         const activeTrack = document.querySelector(`.detail-track-item[data-track-id="${trackId}"]`);
         if (activeTrack) {
             activeTrack.classList.add('active');
+            if (isPlaying) {
+                activeTrack.classList.add('playing');
+            }
+            
+            // Обновляем состояние кнопки воспроизведения трека
+            const playButton = activeTrack.querySelector('.detail-track-play-button');
+            if (playButton && isPlaying) {
+                playButton.classList.add('playing');
+            }
+        }
+        
+        // Обновляем состояние mainPlayButton
+        if (mainPlayButton) {
+            if (trackId === mainPlayButton.dataset.trackId) {
+                if (isPlaying) {
+                    mainPlayButton.classList.add('playing');
+                } else {
+                    mainPlayButton.classList.remove('playing');
+                }
+            } else {
+                mainPlayButton.classList.remove('playing');
+            }
         }
     }
     
@@ -233,13 +347,46 @@ document.addEventListener('DOMContentLoaded', function() {
         if (isPlaying) {
             audioElement.pause();
             isPlaying = false;
+            
+            // Обновляем состояние всех кнопок
             playPauseButton.classList.remove('playing');
             miniPlayButton.classList.remove('playing');
+            mainPlayButton.classList.remove('playing');
+            
+            if (currentTrackId) {
+                const activeTrack = document.querySelector(`.detail-track-item[data-track-id="${currentTrackId}"]`);
+                if (activeTrack) {
+                    activeTrack.classList.remove('playing');
+                    const playButton = activeTrack.querySelector('.detail-track-play-button');
+                    if (playButton) {
+                        playButton.classList.remove('playing');
+                    }
+                }
+            }
         } else {
             audioElement.play().then(() => {
                 isPlaying = true;
+                
+                // Обновляем состояние всех кнопок
                 playPauseButton.classList.add('playing');
                 miniPlayButton.classList.add('playing');
+                mainPlayButton.classList.add('playing');
+
+                if (currentTrackId) {
+                    const activeTrack = document.querySelector(`.detail-track-item[data-track-id="${currentTrackId}"]`);
+                    if (activeTrack) {
+                        activeTrack.classList.add('playing');
+                        const playButton = activeTrack.querySelector('.detail-track-play-button');
+                        if (playButton) {
+                            playButton.classList.add('playing');
+                        }
+                    }
+                }
+                
+                // Обновляем состояние mainPlayButton
+                if (mainPlayButton && currentTrackId === mainPlayButton.dataset.trackId) {
+                    mainPlayButton.classList.add('playing');
+                }
             }).catch(error => {
                 console.error('Error playing audio:', error);
             });
@@ -252,10 +399,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const duration = audioElement.duration || 0;
         
         if (duration > 0) {
-            // Обновляем прогресс-бар
+            // Обновляем прогресс-бар в полном плеере
             const progressPercent = (currentTime / duration) * 100;
             progressBarFill.style.width = `${progressPercent}%`;
             progressHandle.style.left = `${progressPercent}%`;
+            
+            // Обновляем прогресс-бар в мини-плеере
+            miniProgressBarFill.style.width = `${progressPercent}%`;
             
             // Обновляем отображение времени
             currentTimeDisplay.textContent = formatTime(currentTime);
@@ -426,6 +576,20 @@ document.addEventListener('DOMContentLoaded', function() {
             visualizer = null;
         }
     }
+    
+    // Добавляем обработчик для прогресс-бара в мини-плеере
+    const miniProgressBar = document.querySelector('.mini-player-progress');
+    miniProgressBar.addEventListener('click', function(e) {
+        const rect = this.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const width = rect.width;
+        const clickPercent = x / width;
+        
+        // Устанавливаем новую позицию воспроизведения
+        if (audioElement.duration) {
+            audioElement.currentTime = clickPercent * audioElement.duration;
+        }
+    });
     
     // Инициализация плеера
     initPlayer();

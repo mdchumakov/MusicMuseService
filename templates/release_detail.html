@@ -36,70 +36,11 @@
   </div>
   
   <!-- Кнопки управления -->
-  <div class="detail-controls">
-    <button class="detail-play-button" id="playReleaseButton">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <path d="M8 5V19L19 12L8 5Z" fill="currentColor"></path>
-      </svg>
-      <span>Слушать</span>
-    </button>
-  </div>
+  {% include 'track_controls.html' %}
 </div>
 
 <!-- Список треков -->
-<div class="detail-track-list-container">
-  <div class="detail-track-list-header">
-    <div class="detail-track-number">#</div>
-    <div class="detail-track-title-header">Название</div>
-    <div class="detail-track-duration">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 3.5C5.51 3.5 3.5 5.51 3.5 8C3.5 10.49 5.51 12.5 8 12.5C10.49 12.5 12.5 10.49 12.5 8C12.5 5.51 10.49 3.5 8 3.5ZM8 11.5C6.07 11.5 4.5 9.93 4.5 8C4.5 6.07 6.07 4.5 8 4.5C9.93 4.5 11.5 6.07 11.5 8C11.5 9.93 9.93 11.5 8 11.5ZM8.25 5.75H7.5V8.5L9.75 9.9L10.125 9.285L8.25 8.13V5.75Z" fill="currentColor"></path>
-      </svg>
-    </div>
-  </div>
-  
-  <!-- Треки -->
-  <div class="detail-track-list">
-    {% for track in tracks %}
-    <div class="detail-track-item"
-         data-track-id="{{ track.id }}" 
-         data-track-name="{{ track.name }}" 
-         data-artist-name="{% for artist in track.artists.all %}{{ artist.name }}{% if not forloop.last %}, {% endif %}{% endfor %}" 
-         data-cover-url="{% if track.cover_image %}{{ track.cover_image.image.url }}{% else %}{{ release.cover_image.image.url }}{% endif %}"
-         data-audio-url="{{ track.track.audio.url }}"
-         data-video-url="{% if track.video %}{{ track.video.video.url }}{% endif %}">
-      <div class="detail-track-number">
-        <span class="detail-track-index">{{ forloop.counter }}</span>
-        <button class="detail-play-button-small">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M4.5 3.5V12.5L12.5 8L4.5 3.5Z" fill="white"></path>
-          </svg>
-        </button>
-      </div>
-      <div class="detail-track-info-container">
-        <div class="detail-track-name">{{ track.name }}</div>
-        <div class="detail-track-artists">
-          {% for artist in track.artists.all %}
-          <a href="/music/artist/{{ artist.id }}" class="detail-track-artist-link">{{ artist.name }}{% if not forloop.last %}, {% endif %}</a>
-          {% endfor %}
-        </div>
-      </div>
-      <div class="detail-track-duration">{{ track.track.duration_render }}</div>
-    </div>
-    {% endfor %}
-  </div>
-  
-  <!-- Информация о релизе -->
-  <div class="detail-release-info">
-    <p class="detail-release-date">{{ release.release_date|date:"d F Y" }}</p>
-    <p class="detail-copyright">{% if release.label %}© {{ release.release_date|date:"Y" }} {{ release.label }}{% endif %}</p>
-  </div>
-</div>
-
-{% include 'player.html' %}
+{% include 'track_list.html' %}
 
 {% endblock %}
 
-{% block extra_scripts %}
-<script src="{% static 'music/js/player-detail.js' %}"></script>
-{% endblock %}

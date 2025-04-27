@@ -88,31 +88,6 @@
     margin: 0 4px;
 }
 
-.detail-controls {
-    display: flex;
-    gap: 16px;
-    align-items: center;
-}
-
-.detail-play-button {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--accent);
-    color: var(--text-dark);
-    border: none;
-    border-radius: 32px;
-    padding: 12px 24px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.detail-play-button:hover {
-    transform: scale(1.05);
-    background: var(--accent-hover);
-}
-
 /* Адаптивность */
 @media (max-width: 768px) {
     .detail-info {

@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
             e.stopPropagation();
             
             // Получаем ID элемента (трек, исполнитель или альбом)
-            const card = this.closest('[data-id]');
+            const card = this.closest('[data-track-id]');
             const itemId = card.dataset.id;
             const itemType = card.classList.contains('track-card') ? 'track' : 
                             card.classList.contains('artist-card') ? 'artist' : 'album';

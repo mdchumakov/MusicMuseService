@@ -1,0 +1,32 @@
+User-agent: *
+Allow: /
+Allow: /static/
+Allow: /templates/
+
+# Запрещаем индексацию служебных директорий
+Disallow: /.git/
+Disallow: /.idea/
+Disallow: /.ruff_cache/
+Disallow: /.poetry/
+Disallow: /docs/
+
+# Запрещаем индексацию системных файлов
+Disallow: /.DS_Store
+Disallow: /Dockerfile
+Disallow: /poetry.lock
+Disallow: /pyproject.toml
+Disallow: /Makefile
+Disallow: /manage.py
+
+# Специальные правила для Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+# Специальные правила для Yandex
+User-agent: Yandex
+Allow: /
+Crawl-delay: 1
+
+# Ссылка на sitemap (раскомментируйте после создания sitemap.xml)
+# Sitemap: https://your-domain.com/sitemap.xml 
