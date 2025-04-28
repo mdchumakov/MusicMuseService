@@ -1,0 +1,115 @@
+.error-container {
+    min-height: calc(100vh - 200px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.error-content {
+    text-align: center;
+    max-width: 600px;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.error-icon {
+    margin-bottom: 2rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+.error-title {
+    font-size: 6rem;
+    font-weight: 700;
+    color: #FFA500;
+    margin: 0;
+    line-height: 1;
+    text-shadow: 0 0 20px rgba(255, 165, 0, 0.3);
+}
+
+.error-subtitle {
+    font-size: 2rem;
+    color: #ffffff;
+    margin: 1rem 0;
+}
+
+.error-description {
+    color: #b3b3b3;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.error-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.error-button {
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.error-button.primary {
+    background: #FFA500;
+    color: #ffffff;
+}
+
+.error-button.primary:hover {
+    background: #ff8c00;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 165, 0, 0.3);
+}
+
+.error-button.secondary {
+    background: transparent;
+    color: #FFA500;
+    border: 2px solid #FFA500;
+}
+
+.error-button.secondary:hover {
+    background: rgba(255, 165, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@media (max-width: 768px) {
+    .error-title {
+        font-size: 4rem;
+    }
+
+    .error-subtitle {
+        font-size: 1.5rem;
+    }
+
+    .error-description {
+        font-size: 1rem;
+    }
+
+    .error-actions {
+        flex-direction: column;
+    }
+
+    .error-button {
+        width: 100%;
+    }
+}

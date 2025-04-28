@@ -1,4 +1,5 @@
-from django.http import HttpRequest, HttpResponse
+from http import HTTPStatus
+from django.http import HttpRequest, HttpResponse, Http404
 from django.template import loader
 from random import randint
 from django.shortcuts import redirect, get_object_or_404
@@ -7,7 +8,6 @@ from apps.music.services.search import make_full_search
 from apps.music.services.popular_extractor import popular_extractor
 
 _MIN_SEARCH_QUERY_LEN = 3
-
 
 
 def download_track(request: HttpRequest, track_id: int):
@@ -51,9 +51,16 @@ def music(request: HttpRequest) -> HttpResponse:
 
 
 def music_artist_page(request: HttpRequest, artist_id: int) -> HttpResponse:
+    try:
+        artist = Artists.objects.get(pk=artist_id)
+    except Artists.DoesNotExist:
+        not_found = loader.get_template("404.html")
+        return HttpResponse(
+            status=HTTPStatus.NOT_FOUND,
+            content=not_found.render({}, request),
+        )
     template = loader.get_template("music_artist.html")
 
-    artist = get_object_or_404(Artists, pk=artist_id)
     popular_tracks = Tracks.objects.filter(artists__id=artist_id).order_by("-created")[:10]
     releases = Releases.objects.filter(artists__in=[artist])[:10]
     context = {
@@ -67,9 +74,16 @@ def music_artist_page(request: HttpRequest, artist_id: int) -> HttpResponse:
 
 
 def music_track_page(request: HttpRequest, track_id: int) -> HttpResponse:
-    template = loader.get_template("track_detail.html")
+    try:
+        track = Tracks.objects.get(pk=track_id)
+    except Tracks.DoesNotExist:
+        not_found = loader.get_template("404.html")
+        return HttpResponse(
+            status=HTTPStatus.NOT_FOUND,
+            content=not_found.render({}, request),
+        )
 
-    track = get_object_or_404(Tracks, pk=track_id)
+    template = loader.get_template("track_detail.html")
     release_tracks = Tracks.objects.filter(release__id=track.release.pk)
 
     context = {
@@ -82,9 +96,18 @@ def music_track_page(request: HttpRequest, track_id: int) -> HttpResponse:
 
 
 def music_release_page(request: HttpRequest, release_id: int) -> HttpResponse:
+
+    try:
+        release = Releases.objects.get(pk=release_id)
+    except Releases.DoesNotExist:
+        not_found = loader.get_template("404.html")
+        return HttpResponse(
+            status=HTTPStatus.NOT_FOUND,
+            content=not_found.render({}, request),
+        )
+
     template = loader.get_template("release_detail.html")
 
-    release = get_object_or_404(Releases, pk=release_id)
     tracks = Tracks.objects.filter(release__id=release_id)
 
     context = {

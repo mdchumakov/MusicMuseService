@@ -111,3 +111,26 @@
     </section>
 {% endif %}
 {% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Обработчик для всех кнопок воспроизведения
+    document.querySelectorAll('.play-button').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Находим ближайший родительский элемент с классом track-card, artist-card или album-card
+            const card = this.closest('.track-card, .artist-card, .album-card');
+            if (card) {
+                // Находим ссылку внутри карточки
+                const link = card.querySelector('a');
+                if (link) {
+                    // Переходим по ссылке
+                    window.location.href = link.href;
+                }
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
