@@ -21,7 +21,7 @@
           <div class="detail-stats">
             <span>{{ track.release.release_date|date:"Y" }}</span>
             <span class="dot-separator">•</span>
-            <span>{{ release_tracks.count }} {% if release_tracks.count == 1 %}трек{% elif 2 <= release_tracks.count and release_tracks.count <= 4 %}трека{% else %}треков{% endif %}</span>
+            <span>{{ tracks.count }} {% if tracks.count == 1 %}трек{% elif 2 <= tracks.count and tracks.count <= 4 %}трека{% else %}треков{% endif %}</span>
             <span class="dot-separator">•</span>
             <span>{{ total_duration }}</span>
           </div>

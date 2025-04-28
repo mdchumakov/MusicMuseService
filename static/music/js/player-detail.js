@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Состояние плеера
     let isPlaying = false;
-    let isFirstPlay = true;
     let currentTrackId = null;
     let currentPlaylist = [];
     let audioContext = null;

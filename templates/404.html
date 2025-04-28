@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'music/css/404.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="error-container">
+    <div class="error-content">
+        <div class="error-icon">
+            <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="60" cy="60" r="54" stroke="#FFA500" stroke-width="4"></circle>
+                <path d="M40 40L80 80M80 40L40 80" stroke="#FFA500" stroke-width="4" stroke-linecap="round"></path>
+            </svg>
+        </div>
+        <h1 class="error-title">404</h1>
+        <h2 class="error-subtitle">Страница не найдена</h2>
+        <p class="error-description">К сожалению, запрашиваемая страница не существует или была удалена.</p>
+        <div class="error-actions">
+            <a href="/" class="error-button primary">Вернуться на главную</a>
+            <a href="/music" class="error-button secondary">Перейти к музыке</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
