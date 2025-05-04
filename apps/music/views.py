@@ -51,6 +51,9 @@ def music(request: HttpRequest) -> HttpResponse:
 
 
 def music_artist_page(request: HttpRequest, artist_id: int) -> HttpResponse:
+    if request.GET.get("q"):
+        return music(request)
+
     try:
         artist = Artists.objects.get(pk=artist_id)
     except Artists.DoesNotExist:
@@ -74,6 +77,9 @@ def music_artist_page(request: HttpRequest, artist_id: int) -> HttpResponse:
 
 
 def music_track_page(request: HttpRequest, track_id: int) -> HttpResponse:
+    if request.GET.get("q"):
+        return music(request)
+
     try:
         track = Tracks.objects.get(pk=track_id)
     except Tracks.DoesNotExist:
@@ -96,6 +102,8 @@ def music_track_page(request: HttpRequest, track_id: int) -> HttpResponse:
 
 
 def music_release_page(request: HttpRequest, release_id: int) -> HttpResponse:
+    if request.GET.get("q"):
+        return music(request)
 
     try:
         release = Releases.objects.get(pk=release_id)

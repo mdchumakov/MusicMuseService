@@ -261,6 +261,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Запускаем воспроизведение
         audioElement.play().then(() => {
+            if (videoElement.src) {
+                videoElement.play();
+            }
             isPlaying = true;
             
             // Обновляем состояние всех кнопок
@@ -345,6 +348,9 @@ document.addEventListener('DOMContentLoaded', function() {
     function togglePlayPause() {
         if (isPlaying) {
             audioElement.pause();
+            if (videoElement.src) {
+                videoElement.pause();
+            }
             isPlaying = false;
             
             // Обновляем состояние всех кнопок
@@ -364,6 +370,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         } else {
             audioElement.play().then(() => {
+                if (videoElement.src) {
+                    videoElement.play();
+                }
                 isPlaying = true;
                 
                 // Обновляем состояние всех кнопок
