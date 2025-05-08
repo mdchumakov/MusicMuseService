@@ -307,5 +307,5 @@ else:
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# Добавляем SITE_ID для sitemap
+
 SITE_ID = 1

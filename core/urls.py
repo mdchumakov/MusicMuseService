@@ -28,12 +28,13 @@ from apps.music.views import download_track as download_track_views
 from core.api import api
 from core.settings import HEALTH_SECRET_TOKEN
 from core.views import index
-from apps.music.sitemaps import StaticViewSitemap, ArtistSitemap, TrackSitemap
+from apps.music.sitemaps import StaticViewSitemap, ArtistSitemap, TrackSitemap, ReleaseSitemap
 
 sitemaps = {
     'static': StaticViewSitemap,
     'artists': ArtistSitemap,
     'tracks': TrackSitemap,
+    'releases': ReleaseSitemap,
 }
 
 urlpatterns = [
