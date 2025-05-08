@@ -88,6 +88,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
+    "django.contrib.sitemaps",
     "apps.music.apps.MusicConfig",
     "health_check",  # required
     "health_check.db",  # stock Django health checkers
@@ -304,3 +306,6 @@ else:
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Добавляем SITE_ID для sitemap
+SITE_ID = 1
