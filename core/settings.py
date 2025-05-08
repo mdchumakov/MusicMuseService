@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import os
-import sentry_sdk
 from enum import StrEnum
 from pathlib import Path
 from typing import assert_never
@@ -20,6 +19,7 @@ import environ
 import tomllib
 from dj_easy_log import load_loguru
 from dotenv import load_dotenv
+import sentry_sdk
 
 
 load_dotenv()
@@ -195,6 +195,7 @@ OPENSEARCH_DSL = {
 }
 
 
+# Sentry settings
 sentry_sdk.init(
     dsn=env("SENTRY_DSN"),
     # Add data like request headers and IP for users,
