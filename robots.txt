@@ -28,5 +28,4 @@ User-agent: Yandex
 Allow: /
 Crawl-delay: 1
 
-# Ссылка на sitemap (раскомментируйте после создания sitemap.xml)
-# Sitemap: https://your-domain.com/sitemap.xml 
+Sitemap: https://musicmuse.ru/sitemap.xml 
