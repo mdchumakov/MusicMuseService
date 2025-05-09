@@ -3,14 +3,14 @@ Allow: /
 Allow: /static/
 Allow: /templates/
 
-# Запрещаем индексацию служебных директорий
+# Disallowing for service directories
 Disallow: /.git/
 Disallow: /.idea/
 Disallow: /.ruff_cache/
 Disallow: /.poetry/
 Disallow: /docs/
 
-# Запрещаем индексацию системных файлов
+# Disallowing for system files
 Disallow: /.DS_Store
 Disallow: /Dockerfile
 Disallow: /poetry.lock
@@ -18,13 +18,18 @@ Disallow: /pyproject.toml
 Disallow: /Makefile
 Disallow: /manage.py
 
-# Специальные правила для Google
+# For Google
 User-agent: Googlebot
 Allow: /
 Crawl-delay: 1
 
-# Специальные правила для Yandex
+# For Yandex
 User-agent: Yandex
+Allow: /
+Crawl-delay: 1
+
+# For Firefox
+User-agent: Firefox
 Allow: /
 Crawl-delay: 1
 

@@ -18,8 +18,10 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
+from django.views.static import serve
 from pictures.conf import get_settings
 
+from core.settings import BASE_DIR
 from apps.music.views import music as music_views
 from apps.music.views import music_artist_page as music_artist_page_views
 from apps.music.views import music_track_page as music_track_page_views
@@ -38,6 +40,7 @@ sitemaps = {
 }
 
 urlpatterns = [
+    path("robots.txt", serve, {"path": "robots.txt", "document_root": BASE_DIR}, name="robots"),
     path("admin/", admin.site.urls),
     path("sitemap.xml", sitemap, {'sitemaps': sitemaps},
          name='django.contrib.sitemaps.views.sitemap'),
