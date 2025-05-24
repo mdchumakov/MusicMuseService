@@ -11,15 +11,19 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import os
-import sentry_sdk
 from enum import StrEnum
 from pathlib import Path
-from typing import assert_never
 
 import environ
+import sentry_sdk
 import tomllib
 from dj_easy_log import load_loguru
 from dotenv import load_dotenv
+
+
+class Environment(StrEnum):
+    PRODUCTION = "production"
+    LOCAL = "local"
 
 
 load_dotenv()
@@ -48,7 +52,7 @@ SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG", default=False)
-
+ENVIRONMENT = env("ENVIRONMENT", default=Environment.LOCAL if DEBUG else Environment.PRODUCTION)
 HEALTH_SECRET_TOKEN = env("HEALTH_SECRET_TOKEN")
 
 ALLOWED_HOSTS = [
@@ -211,6 +215,8 @@ sentry_sdk.init(
         # possible.
         "continuous_profiling_auto_start": True,
     },
+    environment=ENVIRONMENT,
+    release=PROJECT_VERSION,
 )
 
 # Internationalization
@@ -250,7 +256,7 @@ default_storages_options = {
 # Настройки для хранения медиафайлов
 STORAGES = {
     "default": {
-        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage" ,
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
         "OPTIONS": default_storages_options,
     },
     "staticfiles": {
@@ -292,7 +298,7 @@ S3_PRIVATE_MEDIA_LOCATION = "media/private"
 if DEBUG:
     STATIC_URL = "static/"
     STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static'),
+        os.path.join(BASE_DIR, "static"),
     ]
 
 else:
