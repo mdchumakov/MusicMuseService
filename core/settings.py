@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import os
+from enum import StrEnum
 from pathlib import Path
 
 import environ
@@ -18,6 +19,12 @@ import sentry_sdk
 import tomllib
 from dj_easy_log import load_loguru
 from dotenv import load_dotenv
+
+
+class Environment(StrEnum):
+    PRODUCTION = "production"
+    LOCAL = "local"
+
 
 load_dotenv()
 
@@ -45,7 +52,7 @@ SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG", default=False)
-
+ENVIRONMENT = env("ENVIRONMENT", default=Environment.LOCAL if DEBUG else Environment.PRODUCTION)
 HEALTH_SECRET_TOKEN = env("HEALTH_SECRET_TOKEN")
 ROOT_DOMAIN = env("ROOT_DOMAIN", default="musicmuse.ru")
 
@@ -210,6 +217,8 @@ sentry_sdk.init(
         # possible.
         "continuous_profiling_auto_start": True,
     },
+    environment=ENVIRONMENT,
+    release=PROJECT_VERSION,
 )
 
 # Internationalization
