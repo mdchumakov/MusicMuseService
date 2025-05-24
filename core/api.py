@@ -8,8 +8,8 @@ from apps.music.api.routes.content import router_v1 as content_router_v1
 from apps.music.api.routes.genres import router_v1 as genres_router_v1
 from apps.music.api.routes.labels import router_v1 as labels_router_v1
 from apps.music.api.routes.releases import router_v1 as releases_router_v1
-from apps.music.api.routes.tracks import router_v1 as tracks_router_v1
 from apps.music.api.routes.search import router_v1 as search_router_v1
+from apps.music.api.routes.tracks import router_v1 as tracks_router_v1
 from core.settings import DEBUG, PROJECT_VERSION
 
 api = NinjaAPI(

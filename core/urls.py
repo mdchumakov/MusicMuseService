@@ -21,34 +21,32 @@ from django.urls import include, path
 from django.views.static import serve
 from pictures.conf import get_settings
 
-from core.settings import BASE_DIR
+from apps.music.sitemaps import ArtistSitemap, ReleaseSitemap, StaticViewSitemap, TrackSitemap
+from apps.music.views import download_track as download_track_views
 from apps.music.views import music as music_views
 from apps.music.views import music_artist_page as music_artist_page_views
-from apps.music.views import music_track_page as music_track_page_views
 from apps.music.views import music_release_page as music_release_page_views
-from apps.music.views import download_track as download_track_views
+from apps.music.views import music_track_page as music_track_page_views
 from core.api import api
-from core.settings import HEALTH_SECRET_TOKEN
+from core.settings import BASE_DIR, HEALTH_SECRET_TOKEN
 from core.views import index
-from apps.music.sitemaps import StaticViewSitemap, ArtistSitemap, TrackSitemap, ReleaseSitemap
 
 sitemaps = {
-    'static': StaticViewSitemap,
-    'artists': ArtistSitemap,
-    'tracks': TrackSitemap,
-    'releases': ReleaseSitemap,
+    "static": StaticViewSitemap,
+    "artists": ArtistSitemap,
+    "tracks": TrackSitemap,
+    "releases": ReleaseSitemap,
 }
 
 urlpatterns = [
     path("robots.txt", serve, {"path": "robots.txt", "document_root": BASE_DIR}, name="robots"),
     path("admin/", admin.site.urls),
-    path("sitemap.xml", sitemap, {'sitemaps': sitemaps},
-         name='django.contrib.sitemaps.views.sitemap'),
+    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
     path("", index, name="index"),
     path("music/", music_views, name="music"),
     path("music/artist/<int:artist_id>/", music_artist_page_views, name="music_artist_page"),
     path("music/track/<int:track_id>/", music_track_page_views, name="music_track"),
-    path('music/release/<int:release_id>/', music_release_page_views, name='release_detail'),
+    path("music/release/<int:release_id>/", music_release_page_views, name="release_detail"),
     path("music/download/<int:track_id>/", download_track_views, name="download_track"),
     path("api/", api.urls),
     path(rf"ht/{HEALTH_SECRET_TOKEN}/", include("health_check.urls")),

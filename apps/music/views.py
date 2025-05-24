@@ -1,11 +1,13 @@
 from http import HTTPStatus
-from django.http import HttpRequest, HttpResponse, Http404
-from django.template import loader
 from random import randint
-from django.shortcuts import redirect, get_object_or_404
-from apps.music.models import Artists, Tracks, Releases
-from apps.music.services.search import make_full_search
+
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import get_object_or_404
+from django.template import loader
+
+from apps.music.models import Artists, Releases, Tracks
 from apps.music.services.popular_extractor import popular_extractor
+from apps.music.services.search import make_full_search
 
 _MIN_SEARCH_QUERY_LEN = 3
 
@@ -67,10 +69,10 @@ def music_artist_page(request: HttpRequest, artist_id: int) -> HttpResponse:
     popular_tracks = Tracks.objects.filter(artists__id=artist_id).order_by("-created")[:10]
     releases = Releases.objects.filter(artists__in=[artist])[:10]
     context = {
-        'artist': artist,
-        'tracks': popular_tracks,
-        'releases': releases,
-        'monthly_listeners': randint(1, 100),
+        "artist": artist,
+        "tracks": popular_tracks,
+        "releases": releases,
+        "monthly_listeners": randint(1, 100),
     }
 
     return HttpResponse(template.render(context, request))

@@ -54,6 +54,7 @@ SECRET_KEY = env("SECRET_KEY")
 DEBUG = env("DEBUG", default=False)
 ENVIRONMENT = env("ENVIRONMENT", default=Environment.LOCAL if DEBUG else Environment.PRODUCTION)
 HEALTH_SECRET_TOKEN = env("HEALTH_SECRET_TOKEN")
+ROOT_DOMAIN = env("ROOT_DOMAIN", default="musicmuse.ru")
 
 ALLOWED_HOSTS = [
     "localhost",
@@ -69,8 +70,9 @@ ALLOWED_HOSTS = [
     "192.168.0.228",
 ]
 
+
 CSRF_TRUSTED_ORIGINS = [
-    "https://musicmuse.ru",
+    f"https://{ROOT_DOMAIN}",
 ]
 
 # Application definition
@@ -237,7 +239,7 @@ DATA_UPLOAD_MAX_NUMBER_FIELDS = 10240
 
 # Настройки AWS
 STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
-
+STATIC_DOMAIN = f"static.{ROOT_DOMAIN}"
 # Настройки для S3
 S3_DOMAIN = env("S3_DOMAIN")
 S3_CUSTOM_DOMAIN = f"{STORAGE_BUCKET_NAME}.{S3_DOMAIN}"
@@ -248,7 +250,7 @@ default_storages_options = {
     "secret_key": env("AWS_SECRET_ACCESS_KEY"),
     "bucket_name": env("AWS_STORAGE_BUCKET_NAME"),
     "region_name": env("AWS_S3_REGION_NAME"),
-    "custom_domain": S3_CUSTOM_DOMAIN,
+    "custom_domain": STATIC_DOMAIN,
     "endpoint_url": f"https://{S3_DOMAIN}",
     "use_ssl": True,
 }
@@ -302,8 +304,8 @@ if DEBUG:
     ]
 
 else:
-    MEDIA_URL = f"https://{S3_CUSTOM_DOMAIN}/media/"
-    STATIC_URL = f"https://{S3_CUSTOM_DOMAIN}/static/"
+    MEDIA_URL = f"https://{STATIC_DOMAIN}/media/"
+    STATIC_URL = f"https://{STATIC_DOMAIN}/static/"
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR, "static"),
     ]

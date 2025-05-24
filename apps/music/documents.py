@@ -1,7 +1,7 @@
 from django_opensearch_dsl import Document
 from django_opensearch_dsl.registries import registry
 
-from apps.music.models import Releases, Tracks, Artists
+from apps.music.models import Artists, Releases, Tracks
 
 
 @registry.register_document
