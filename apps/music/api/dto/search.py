@@ -1,6 +1,7 @@
-from ninja import FilterSchema, Schema
-from pydantic import PositiveInt
 from enum import StrEnum
+
+from ninja import Schema
+from pydantic import PositiveInt
 
 
 class SearchEntityType(StrEnum):
