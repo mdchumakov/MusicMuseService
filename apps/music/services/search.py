@@ -1,7 +1,8 @@
 from collections import defaultdict
-from apps.music.models import Artists, Tracks, Releases
+
 from apps.music.api.dto.search import SearchEntityType
-from apps.music.documents import TracksDocument, ArtistsDocument, ReleaseDocument
+from apps.music.documents import ArtistsDocument, ReleaseDocument, TracksDocument
+from apps.music.models import Artists, Releases, Tracks
 
 
 def make_full_search(query: str) -> tuple[Artists, Tracks, Releases]:
@@ -15,7 +16,8 @@ def make_full_search(query: str) -> tuple[Artists, Tracks, Releases]:
         doc, doc_type = document["document"], document["type"]
 
         search_ = doc.search()
-        search_query = search_.query({
+        search_query = search_.query(
+            {
                 "multi_match": {
                     "query": query,
                     "fields": ["name", "name.suggest"],

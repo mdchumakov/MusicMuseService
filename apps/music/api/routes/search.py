@@ -1,9 +1,9 @@
+from loguru import logger
 from ninja import Router
 from ninja.throttling import AnonRateThrottle, AuthRateThrottle
 
 from apps.music.api.docs import Tags
-from loguru import logger
-from apps.music.api.dto.search import SearchOutSchema, SearchEntityType
+from apps.music.api.dto.search import SearchEntityType, SearchOutSchema
 from apps.music.documents import ArtistsDocument, ReleaseDocument, TracksDocument
 
 router_v1 = Router(tags=[Tags.search])
@@ -14,7 +14,7 @@ router_v1 = Router(tags=[Tags.search])
     tags=[Tags.search],
     summary="Поиск по артистам, трекам и релизам",
     auth=None,
-    throttle=[AnonRateThrottle("100/s"), AuthRateThrottle("100/s")]
+    throttle=[AnonRateThrottle("100/s"), AuthRateThrottle("100/s")],
 )
 def search(request, q: str) -> list[SearchOutSchema]:
     logger.info(request)
@@ -47,7 +47,7 @@ def search(request, q: str) -> list[SearchOutSchema]:
 
 
 def _query(query: str) -> dict:
-    return  {
+    return {
         "multi_match": {
             "query": query,
             "fields": ["name", "name.suggest"],

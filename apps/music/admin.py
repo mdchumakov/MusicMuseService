@@ -83,7 +83,10 @@ class ArtistsAdmin(admin.ModelAdmin):
 class AudioAdmin(admin.ModelAdmin):
     list_display = ("id", "slug", "sound_display", "name", "created")
     readonly_fields = ("sound_display",)
-    search_fields = ("id", "name",)
+    search_fields = (
+        "id",
+        "name",
+    )
     date_hierarchy = "created"
     ordering = ("-created",)
 
@@ -99,7 +102,10 @@ class AudioAdmin(admin.ModelAdmin):
 @admin.register(models.Video)
 class VideoAdmin(admin.ModelAdmin):
     list_display = ("id", "slug", "name", "video", "created")
-    search_fields = ("id", "name",)
+    search_fields = (
+        "id",
+        "name",
+    )
     date_hierarchy = "created"
     ordering = ("-created",)
 
@@ -107,7 +113,10 @@ class VideoAdmin(admin.ModelAdmin):
 @admin.register(models.Genres)
 class GenresAdmin(admin.ModelAdmin):
     list_display = ("id", "slug", "name", "parent", "description", "created")
-    search_fields = ("id", "name",)
+    search_fields = (
+        "id",
+        "name",
+    )
     date_hierarchy = "created"
     ordering = ("-created",)
     prepopulated_fields = {"slug": ("name",)}
@@ -116,7 +125,10 @@ class GenresAdmin(admin.ModelAdmin):
 @admin.register(models.Images)
 class ImagesAdmin(admin.ModelAdmin):
     list_display = ("id", "slug", "icon", "name", "image", "created")
-    search_fields = ("id", "name",)
+    search_fields = (
+        "id",
+        "name",
+    )
     date_hierarchy = "created"
     ordering = ("-created",)
 
@@ -130,7 +142,10 @@ class ImagesAdmin(admin.ModelAdmin):
 @admin.register(models.Labels)
 class LabelsAdmin(admin.ModelAdmin):
     list_display = ("id", "slug", "name", "description", "created")
-    search_fields = ("id", "name",)
+    search_fields = (
+        "id",
+        "name",
+    )
     date_hierarchy = "created"
     ordering = ("-created",)
     prepopulated_fields = {"slug": ("name",)}
@@ -148,7 +163,10 @@ class ReleaseAdmin(admin.ModelAdmin):
         "release_date",
         "publication_time",
     )
-    search_fields = ("id", "name",)
+    search_fields = (
+        "id",
+        "name",
+    )
     date_hierarchy = "created"
     ordering = ("-created",)
     filter_horizontal = ("genres", "artists")
@@ -177,7 +195,10 @@ class TracksAdmin(admin.ModelAdmin):
         "release_date",
         "publication_time",
     )
-    search_fields = ("id", "name",)
+    search_fields = (
+        "id",
+        "name",
+    )
     filter_horizontal = ("genres", "artists")
 
     def sound_display(self, item) -> str:
